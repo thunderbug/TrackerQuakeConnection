@@ -24,8 +24,8 @@ class Connection
      */
     public function __construct(string $ip, int $port)
     {
-        $this->connection = fsockopen($ip, $port, $errno, $errstr, 30);
-        if($this->connection === false) {
+        $this->connection = fsockopen("udp://".$ip, $port, $errno, $errstr, 30);
+        if($this->connection == false) {
             new \Exception("Connection failed ".$errno.": ".$errstr);
         }
     }
@@ -35,7 +35,7 @@ class Connection
      * @param String $data
      * @return int bytes written
      */
-    protected function write(String $data) : int
+    public function write(String $data) : int
     {
         return fputs($this->connection, $data);
     }
@@ -44,7 +44,7 @@ class Connection
      * Receive data from the connection
      * @return array buffer
      */
-    protected function read() : array
+    public function read() : array
     {
         $buffer = array();
 
