@@ -24,7 +24,7 @@ class Connection
      */
     public function __construct(string $ip, int $port)
     {
-        $this->connection = fsockopen($ip, $port, $errno, $errstr, 5);
+        $this->connection = fsockopen($ip, $port, $errno, $errstr, 30);
         if($this->connection === false) {
             new \Exception("Connection failed ".$errno.": ".$errstr);
         }
