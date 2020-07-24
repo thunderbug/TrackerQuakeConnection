@@ -2,8 +2,7 @@
   "name": "thunderbug/tracker-quake-connection",
   "type": "library",
   "description": "A library to retrieve information from quake master servers and game servers",
-  "keywords": ["php", "quake",
-    "src/Thunderbug", "master", "gameserver", "wolfenstein", "call of duty", "modern warfare", "Call of Duty 2", "Call of Duty 4", "Call of Duty 1"],
+  "keywords": ["php", "quake", "master", "gameserver", "wolfenstein", "call of duty", "modern warfare", "Call of Duty 2", "Call of Duty 4", "Call of Duty 1"],
   "license": "MIT",
   "authors": [
     {

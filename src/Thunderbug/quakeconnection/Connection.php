@@ -13,7 +13,7 @@ namespace Thunderbug\QuakeConnection;
 class Connection
 {
     /**
-     * @var false|resource
+     * @var resource
      */
     protected $connection;
 
