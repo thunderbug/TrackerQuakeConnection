@@ -25,7 +25,7 @@ class Connection
     public function __construct(string $ip, int $port)
     {
         $this->connection = fsockopen("udp://".$ip, $port, $errno, $errstr, 30);
-        if($this->connection == false) {
+        if ($this->connection === false) {
             new \Exception("Connection failed ".$errno.": ".$errstr);
         }
     }
