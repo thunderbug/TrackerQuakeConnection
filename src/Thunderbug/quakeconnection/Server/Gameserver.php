@@ -47,7 +47,8 @@ class Gameserver extends Connection
      */
     protected function parse_cvars(array $cvars)
     {
-        for ($i = 0; $i < count($cvars); $i++) {
+        $amt = count($cvars);
+        for ($i = 0; $i < $amt; $i++) {
             $this->cvars[$cvars[$i]] = $cvars[++$i];
         }
     }
