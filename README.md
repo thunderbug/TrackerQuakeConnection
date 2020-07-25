@@ -23,8 +23,28 @@ The returns a array with Server objects.
 
 The gameserver class handles the connection to an individual gameserver.
 
+```php
+$gameserver = new \Thunderbug\QuakeConnection\Server\Gameserver("192.168.1.100", 28960);
+$gameserver->getStatus($cvars, $players);
+```
+Also you can still retrieve the arrays after doing the getstatus command.
+```php
+$cvars = $gameserver->getCvars();
+$players = $gameserver->getPlayers();
+```
+
+Colors are also handled by this library. 
+```php
+print(\Thunderbug\QuakeConnection\Server\Colors::colorize("^5Thun^6der")); 
+//Prints html <span> with color codes
+print(\Thunderbug\QuakeConnection\Server\Colors::removeColors("^5Thun^6der")); 
+//Removes all color codes
+```
+
 ## Installation
 
 You can download the library via composer:
 
-`composer require thunderbug/tracker-quake-connection`
+```composer log
+composer require thunderbug/tracker-quake-connection
+```

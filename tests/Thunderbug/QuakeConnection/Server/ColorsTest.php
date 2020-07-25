@@ -18,7 +18,6 @@ class ColorsTest extends TestCase
     {
         $colors = "^7Te^5est^6Test";
         $removed_colors = Colors::removeColors($colors);
-        print($removed_colors);
         $this->assertEquals("TeestTest", $removed_colors);
     }
 }

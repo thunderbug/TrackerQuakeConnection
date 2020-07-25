@@ -25,9 +25,11 @@ class Connection
     public function __construct(string $ip, int $port)
     {
         $this->connection = fsockopen("udp://".$ip, $port, $errno, $errstr, 30);
-        if ($this->connection === false) {
+        if ($this->connection == false) {
             new \Exception("Connection failed ".$errno.": ".$errstr);
         }
+
+        stream_set_timeout($this->connection, 0, 300000);
     }
 
     /**
@@ -42,16 +44,18 @@ class Connection
 
     /**
      * Receive data from the connection
-     * @return array buffer
+     * @return string data
      */
-    public function read() : array
+    public function read() : string
     {
-        $buffer = array();
+        $data = "";
 
-        while ($buff = fread($this->connection, 16384)) {
-            $buffer[] = $buff;
+        do {
+            $data .= fread($this->connection, 1);
+            $status = socket_get_status($this->connection);
         }
+        while($status["unread_bytes"] != 0);
 
-        return $buffer;
+        return $data;
     }
 }

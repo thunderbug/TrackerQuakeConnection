@@ -46,7 +46,7 @@ class Master extends Connection
         $servers = array();
 
         $this->write("\xFF\xFF\xFF\xFFgetservers ".$this->protocol." full empty");
-        $data = $this->read();
+        $data = $this->read_master();
 
         foreach ($data as $row) {
             $row = str_replace($replace, "", $row);
@@ -60,5 +60,20 @@ class Master extends Connection
         }
 
         return $servers;
+    }
+
+    /**
+     * Receive data from the master
+     * @return array buffer
+     */
+    public function read_master() : array
+    {
+        $buffers = array();
+
+        while ($buff = fread($this->connection, 16384)) {
+            $buffers[] = $buff;
+        }
+
+        return $buffers;
     }
 }
