@@ -35,8 +35,9 @@ $players = $gameserver->getPlayers();
 
 Colors are also handled by this library. 
 ```php
-print(\Thunderbug\QuakeConnection\Server\Colors::colorize("^5Thun^6der")); 
+print(\Thunderbug\QuakeConnection\Server\Colors::colorize("^5Thun^6der", ColorType::DARK)); 
 //Prints html <span> with color codes
+//Depending on the color of the site the color type can be light or dark
 print(\Thunderbug\QuakeConnection\Server\Colors::removeColors("^5Thun^6der")); 
 //Removes all color codes
 ```
