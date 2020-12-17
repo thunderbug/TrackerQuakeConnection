@@ -23,6 +23,7 @@ class Master extends Connection
      * @param string $ip
      * @param int $port
      * @param int|null $protocol
+     * @throws \Exception
      */
     public function __construct(string $ip, int $port, ?int $protocol = 0)
     {
