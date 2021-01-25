@@ -38,7 +38,7 @@ class Colors
      * @param ColorType $colorType
      * @return string Text with HTML Colors
      */
-    public static function colorize(string $text, ColorType $colorType = null): string
+    public static function colorize(string $text, int $colorType = null): string
     {
         switch ($colorType) {
             case ColorType::LIGHT:
