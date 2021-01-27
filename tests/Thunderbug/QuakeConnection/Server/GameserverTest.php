@@ -8,7 +8,7 @@ class GameserverTest extends TestCase
 {
     public function testGetStatus()
     {
-        $gameserver = new Gameserver("50.84.40.219", "28744");
+        $gameserver = new Gameserver("cod4.thunderbug.be", "28960");
         $gameserver->getStatus($cvars, $players);
 
         $this->assertIsArray($cvars);
