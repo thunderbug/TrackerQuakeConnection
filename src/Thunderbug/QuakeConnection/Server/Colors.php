@@ -35,7 +35,7 @@ class Colors
     /**
      * Replace Color q3 tags to HTML Colors
      * @param string $text Text with q3 colors
-     * @param int $colorType
+     * @param int|null $colorType
      * @return string Text with HTML Colors
      */
     public static function colorize(string $text, int $colorType = null): string

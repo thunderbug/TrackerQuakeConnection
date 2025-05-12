@@ -3,6 +3,8 @@
 
 namespace Thunderbug\QuakeConnection;
 
+use Exception;
+
 /**
  * Class Connection
  *
@@ -13,7 +15,7 @@ namespace Thunderbug\QuakeConnection;
 class Connection
 {
     /**
-     * @var resource
+     * @var false|resource
      */
     protected $connection;
 
@@ -21,13 +23,13 @@ class Connection
      * Connection constructor.
      * @param string $ip
      * @param int $port
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(string $ip, int $port)
     {
         $this->connection = fsockopen("udp://" . $ip, $port, $errno, $errstr, 30);
-        if ($this->connection == false) {
-            throw new \Exception("Connection failed " . $errno . ": " . $errstr);
+        if (!$this->connection) {
+            throw new Exception("Connection failed " . $errno . ": " . $errstr);
         }
 
         stream_set_timeout($this->connection, 0, 300000);

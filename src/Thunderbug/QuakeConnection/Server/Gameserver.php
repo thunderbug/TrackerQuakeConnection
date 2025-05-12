@@ -42,7 +42,7 @@ class Gameserver extends Connection
     }
 
     /**
-     * Parse cvars into an correct formatted array
+     * Parse cvars into a correct formatted array
      * @param array $cvars
      */
     protected function parse_cvars(array $cvars)
@@ -54,7 +54,7 @@ class Gameserver extends Connection
     }
 
     /**
-     * Parse players into an correct formatted array
+     * Parse players into a correct formatted array
      * @param array $players
      */
     protected function parse_players(array $players)
@@ -76,7 +76,7 @@ class Gameserver extends Connection
      * Get the public cvars of a server
      * @return array
      */
-    public function getCvars()
+    public function getCvars(): array
     {
         return $this->cvars;
     }

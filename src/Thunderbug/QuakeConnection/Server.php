@@ -40,7 +40,7 @@ class Server
      * @param string $ip
      * @return Server
      */
-    public function setIp(string $ip)
+    public function setIp(string $ip): Server
     {
         $this->ip = $ip;
 
@@ -61,7 +61,7 @@ class Server
      * @param int $port
      * @return Server
      */
-    public function setPort(int $port)
+    public function setPort(int $port): Server
     {
         $this->port = $port;
 
