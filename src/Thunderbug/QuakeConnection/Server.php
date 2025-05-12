@@ -8,7 +8,7 @@ namespace Thunderbug\QuakeConnection\Master;
  *
  * Server object
  *
- * @package Thunderbug\quakeconnection
+ * @package Thunderbug\QuakeConnection
  */
 class Server
 {

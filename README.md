@@ -13,7 +13,7 @@ A library to interact with a call of duty, wolfenstein, ... master server and th
 The Master class handles the connection with the master server of a certain game. At this moment there is only 1 function within the master server function and this is retrieving a full list of gameservers currently online.
 
 ```php
-$master = new \Thunderbug\QuakeConnection\Master\Master("master.game.com", 28910);
+$master = new \Thunderbug\QuakeConnection\Master\Master("Master.game.com", 28910);
 $servers = $master->getServerList();
 ```
 

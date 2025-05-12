@@ -7,9 +7,9 @@ use Thunderbug\QuakeConnection\Connection;
 /**
  * Class Master
  *
- * Connection to the master server of a specified game
+ * Connection to the Master server of a specified game
  *
- * @package Thunderbug\quakeconnection
+ * @package Thunderbug\QuakeConnection
  */
 class Master extends Connection
 {
@@ -33,7 +33,7 @@ class Master extends Connection
     }
 
     /**
-     * Get Server List from the master server
+     * Get Server List from the Master server
      * @return Server[]
      */
     public function getServerList(): array
@@ -64,7 +64,7 @@ class Master extends Connection
     }
 
     /**
-     * Receive data from the master
+     * Receive data from the Master
      * @return array buffer
      */
     public function read_master() : array

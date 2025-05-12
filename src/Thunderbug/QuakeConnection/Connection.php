@@ -8,7 +8,7 @@ namespace Thunderbug\QuakeConnection;
  *
  * UDP connection base
  *
- * @package Thunderbug\quakeconnection
+ * @package Thunderbug\QuakeConnection
  */
 class Connection
 {
