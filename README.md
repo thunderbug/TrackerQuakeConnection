@@ -1,5 +1,5 @@
 # Tracker Quake Connection 
-[![Build Status](https://scrutinizer-ci.com/g/thunderbug/Tracker-CLI/badges/build.png?b=master)](https://scrutinizer-ci.com/g/thunderbug/Tracker-CLI/build-status/master)
+[![Build Status](https://scrutinizer-ci.com/g/thunderbug/TrackerQuakeConnection/badges/build.png?b=master)](https://scrutinizer-ci.com/g/thunderbug/TrackerQuakeConnection/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thunderbug/TrackerQuakeConnection/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thunderbug/TrackerQuakeConnection/?branch=master)
 [![Total Downloads](https://poser.pugx.org/thunderbug/tracker-quake-connection/downloads)](//packagist.org/packages/thunderbug/tracker-quake-connection)
 [![Version](https://poser.pugx.org/thunderbug/tracker-quake-connection/version)](//packagist.org/packages/thunderbug/tracker-quake-connection)
