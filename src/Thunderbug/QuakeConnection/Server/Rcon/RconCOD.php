@@ -3,91 +3,120 @@
 
 namespace Thunderbug\QuakeConnection\Server\Rcon;
 
-use Exception;
-
-class RconCOD implements Rcon
+class RconCoD implements Rcon
 {
-    private $session;
-    private $password;
+    private string $password;
+    private $socket;
 
     /**
-     * Rcon constructor.
-     *
-     * @param string $ip
+     * Class constructor.
+     * @param string $host
      * @param int $port
      * @param string $password
-     * @throws Exception
      */
-    public function __construct(string $ip, int $port, string $password)
+    public function __construct(string $host, int $port, string $password)
     {
         $this->password = $password;
-        $this->session = fsockopen("udp://".$ip, $port, $errno, $errstr, 1);
-        //Error out if unable to connect
-        if(!$this->session) {
-            Throw new Exception($errno . ": " . $errstr);
-        }
 
-        socket_set_timeout($this->session, 1, 1);
+        //create connection to the required server
+        $this->socket = fsockopen("udp://".$host, $port );
+
+        //Timeout rather quickly
+        socket_set_timeout($this->socket, 1, 1);
     }
 
     /**
-     * Send data to the gameserver
-     *
+     * Execute a command on the server
      * @param string $command
-     * @return bool
+     * @return string
      */
-    public function send(string $command): bool
+    public function execute(string $command): string
     {
-        $write = fwrite($this->session, "\xFF\xFF\xFF\xFFrcon ".$this->password." ".$command."\x00");
-        if($write === false) {
+        //Write data
+        $written = fwrite($this->socket, "\xFF\xFF\xFF\xFFrcon " . $this->password . " " . $command . "\x00");
+        if ($written === false) {
             return false;
         }
 
-        return true;
-    }
-
-    /**
-     * Receive data from gameserver
-     * @return string
-     */
-    public function receive(): string
-    {
-        $output = fread ($this->session, 1);
-        if(!empty($output)) {
+        //Read data
+        $output = fread($this->socket, 1);
+        if (!empty($output)) {
             do {
-                $statusPre = socket_get_status($this->session);
-                $output = $output . fread($this->session, 1);
-                $statusPost = socket_get_status($this->session);
+                $statusPre = socket_get_status($this->socket);
+                $output = $output . fread($this->socket, 1);
+                $statusPost = socket_get_status($this->socket);
             } while ($statusPre["unread_bytes"] != $statusPost["unread_bytes"]);
+
+            switch ($command) {
+                case "status":
+                case "teamstatus":
+                    return $output;
+                case "":
+                    return str_replace("\n", "", $output);
+                default:
+                    preg_match('/"(.*)" is: "(.*)" /', $output, $output_array);
+                    return $output_array[2];
+            }
         }
 
         return $output;
     }
 
     /**
-     * Do Command on server
-     *
+     * Push a command to the server without reading it
      * @param string $command
-     * @return string
-     * @throws Exception
+     * @return void
      */
-    public function doCommand(string $command): string
+    private function push(string $command): void
     {
-        $this->send($command);
-        $output = $this->receive();
+        fwrite($this->socket, "\xFF\xFF\xFF\xFFrcon " . $this->password . " " . $command . "\x00");
+    }
 
-        switch ($command) {
-            case "status":
-            case "teamstatus":
-                return $output;
-            case "":
-                return str_replace("\n", "", $output);
-            default:
-                preg_match(" \"(.*)\^7\" ", $output, $matches);
-                if(count($matches) == 2) {
-                    return $matches[1];
-                }
-                Throw new Exception("Invalid command response?" . $output);
+    /**
+     * Kick a user from the server
+     * @param int $id IngameID
+     * @param ?string $reason Reason
+     * @return bool Succeeded
+     */
+    public function kick(int $id, ?string $reason = null): bool
+    {
+        if ($reason != null) {
+            $this->publicmessage($reason);
         }
+
+        $this->execute("clientkick " . $id);
+        return true;
+    }
+
+    /**
+     * Public Message
+     * @param string $message message
+     * @return bool Succeeded
+     */
+    public function publicMessage(string $message): bool
+    {
+        $this->push("say ".$message);
+        return true;
+    }
+
+    /**
+     * Private Message
+     * @param int $id
+     * @param string $message
+     * @return bool Succeeded
+     */
+    public function privateMessage(int $id, string $message): bool
+    {
+        $this->push("tell ". $id. " ".$message);
+        return true;
+    }
+
+    /**
+     * Print a banner ingame
+     * @param string $text text of the banner
+     */
+    public function printBanner(string $text): void
+    {
+        $this->publicMessage($text);
     }
 }

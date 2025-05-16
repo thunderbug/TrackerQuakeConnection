@@ -4,30 +4,44 @@ namespace Thunderbug\QuakeConnection\Server\Rcon;
 
 /**
  * Interface Rcon
+ *
  * @package Thunderbug\QuakeConnection\Server\Rcon
  */
 interface Rcon
 {
     /**
-     * Rcon constructor.
-     *
-     * @param string $ip
-     * @param int $port
-     * @param string $password
+     * Execute a command on the server
+     * @param $command String Command
+     * @return string data
      */
-    public function __construct(string $ip, int $port, string $password);
+    public function execute(string $command): string;
 
     /**
-     * Send data to the gameserver
-     *
-     * @param string $command
-     * @return bool
+     * Kick
+     * @param $id int Ingame ID
+     * @param $reason ?String Reason
+     * @return bool Succeeded
      */
-    public function send(string $command): bool ;
+    public function kick(int $id, ?string $reason): bool;
 
     /**
-     * Receive data from gameserver
-     * @return string
+     * Public Message
+     * @param $message String message
+     * @return bool Succeeded
      */
-    public function receive(): string ;
+    public function publicMessage(string $message): bool;
+
+    /**
+     * Private Message
+     * @param int $id
+     * @param string $message
+     * @return bool Succeeded
+     */
+    public function privateMessage(int $id, string $message): bool;
+
+    /**
+     * Print a banner inGame
+     * @param $text string text of the banner
+     */
+    public function printBanner(string $text): void;
 }
