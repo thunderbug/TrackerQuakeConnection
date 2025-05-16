@@ -4,3 +4,7 @@ build:
       image: default-bionic
       environment:
         php: 8.2
+      tests:
+        override:
+          - php-scrutinizer-run
+          - phpcs-run
