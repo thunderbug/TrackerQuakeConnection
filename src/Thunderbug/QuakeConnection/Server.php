@@ -3,6 +3,10 @@
 
 namespace Thunderbug\QuakeConnection\Master;
 
+use Exception;
+use Socket;
+use Thunderbug\QuakeConnection\Server\PublicInformation;
+
 /**
  * Class Server
  *
@@ -12,18 +16,22 @@ namespace Thunderbug\QuakeConnection\Master;
  */
 class Server
 {
-    private $ip;
-    private $port;
+    private string $ip;
+    private int $port;
+    private ?string $password = null;
+    private ?PublicInformation $publicInformation = null;
 
     /**
      * Server constructor.
      * @param string $ip
      * @param int $port
+     * @param string|null $password
      */
-    public function __construct(string $ip, int $port)
+    public function __construct(string $ip, int $port, ?string $password)
     {
         $this->ip = $ip;
         $this->port = $port;
+        $this->password = $password;
     }
 
     /**
@@ -36,18 +44,6 @@ class Server
     }
 
     /**
-     * Set IPAddress
-     * @param string $ip
-     * @return Server
-     */
-    public function setIp(string $ip): Server
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
-    /**
      * Get Port
      * @return int
      */
@@ -57,14 +53,25 @@ class Server
     }
 
     /**
-     * Set Port
-     * @param int $port
-     * @return Server
+     * Get remote control password
+     * @return string|null
      */
-    public function setPort(int $port): Server
+    protected function getPassword(): ?string
     {
-        $this->port = $port;
+        return $this->password;
+    }
 
-        return $this;
+    /**
+     * Get public accessible information
+     * @return PublicInformation
+     * @throws Exception
+     */
+    public function getPublicInformation(): PublicInformation
+    {
+        if($this->publicInformation === null) {
+            $this->publicInformation = new PublicInformation($this->ip, $this->port);
+        }
+
+        return $this->publicInformation;
     }
 }

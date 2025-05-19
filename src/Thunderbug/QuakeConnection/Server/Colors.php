@@ -8,7 +8,7 @@ namespace Thunderbug\QuakeConnection\Server;
  *
  * Colors in a server name are defined by special chars starting with ^ and a number or letter
  *
- * @package Thunderbug\QuakeConnection\Gameserver
+ * @package Thunderbug\QuakeConnection\PublicInformation
  */
 class Colors
 {

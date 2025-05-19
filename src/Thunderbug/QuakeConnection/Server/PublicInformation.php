@@ -7,16 +7,16 @@ namespace Thunderbug\QuakeConnection\Server;
 use Thunderbug\QuakeConnection\Connection;
 
 /**
- * Class Gameserver
+ * Class PublicInformation
  *
- * Retrieve information from a gameserver
+ * Retrieve information from a Game Server
  *
  * @package Thunderbug\QuakeConnection\Server
  */
-class Gameserver extends Connection
+class PublicInformation extends Connection
 {
-    protected $cvars = array();
-    protected $players = array();
+    protected array $cvars = [];
+    protected array $players = [];
 
     /**
      * Get Status information of the server

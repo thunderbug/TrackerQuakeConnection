@@ -3,25 +3,20 @@
 namespace Thunderbug\QuakeConnection\Server\Rcon;
 
 use PHPUnit\Framework\TestCase;
-use Thunderbug\QuakeConnection\Connection;
 
 class RconCodTest extends TestCase
 {
     /**
-     * Generate a gameserver emulation
-     * @return false|resource|\Socket
+     * @test
+     * @return void
      */
-    private function generateGameserverUDP()
+    public function rconSimpleExecute(): void
     {
-        $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-        socket_bind($socket, '127.0.0.1', 5000);
+        $cod4Server = new COD4ServerEmulator();
+        $rconCOD = new RconCoD("172.0.0.1", 28960, "test");
+        $rconCOD->execute("test");
 
-        return $socket;
-
-        //socket_recvfrom($socket, $buf, strlen($test_data), 0, $remote_ip, $remote_port);
-
+        $data = $cod4Server->receive();
+        $this->assertEquals("\xFF\xFF\xFF\xFFrcon test test\x00", $data);
     }
-
-
-
 }

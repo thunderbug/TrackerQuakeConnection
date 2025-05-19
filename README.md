@@ -22,10 +22,11 @@ The returns a array with Server objects.
 The gameserver class handles the connection to an individual gameserver.
 
 ```php
-$gameserver = new \Thunderbug\QuakeConnection\Server\Gameserver("192.168.1.100", 28960, "password");
+$server = new \Thunderbug\QuakeConnection\Server\Server("192.168.1.100", 28960, "OptionalPassword");
 ```
 Also you can still retrieve the arrays after doing the getstatus command.
 ```php
+$gameserver = $server->getPublicInformation();
 $cvars = $gameserver->getCvars();
 $players = $gameserver->getPlayers();
 ```
